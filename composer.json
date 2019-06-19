@@ -1,0 +1,37 @@
+{
+    "name": "goksagun/elastic-apm-bundle",
+    "description": "Elastic APM bundle",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Burak Bolat",
+            "email": "burak.bolat@metglobal.com"
+        }
+    ],
+    "keywords": [
+        "rate-limit bundle"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "Goksagun\\ElasticApmBundle\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/goksagun/elastic-apm-php-agent.git"
+    }
+    ],
+    "require": {
+        "philkra/elastic-apm-php-agent": "dev-downgrade-guzzle-client"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
