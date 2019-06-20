@@ -24,7 +24,7 @@
     }
     ],
     "require": {
-        "philkra/elastic-apm-php-agent": "dev-downgrade-guzzle-client"
+        "philkra/elastic-apm-php-agent": "dev-master"
     },
     "extra": {
         "branch-alias": {
@@ -33,5 +33,6 @@
     },
     "config": {
         "sort-packages": true
-    }
+    },
+    "minimum-stability": "dev"
 }
