@@ -28,7 +28,11 @@ class RequestListener implements ElasticApmInterface
         }
 
         $this->apm->stopTransaction(
-            $this->getTransactionName($event->getRequest())
+            $this->getTransactionName($event->getRequest()),
+            [
+                'result' => $event->getResponse()->getStatusCode(),
+                'status' => $event->getResponse()->getStatusCode(),
+            ]
         );
 
         $this->apm->send();

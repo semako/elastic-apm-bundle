@@ -9,7 +9,7 @@
         }
     ],
     "keywords": [
-        "rate-limit bundle"
+        "elastic apm bundle"
     ],
     "license": "MIT",
     "autoload": {
