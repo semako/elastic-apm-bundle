@@ -24,5 +24,11 @@ class ElasticApmExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $requestListenerDefinition = $container->getDefinition('elastic_apm.listener.request');
+        $requestListenerDefinition->replaceArgument(0, $config);
+
+        $exceptionListenerDefinition = $container->getDefinition('elastic_apm.listener.exception');
+        $exceptionListenerDefinition->replaceArgument(0, $config);
     }
 }

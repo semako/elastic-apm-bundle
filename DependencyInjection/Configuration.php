@@ -20,9 +20,25 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('elastic_apm');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+            ->booleanNode('enabled')->defaultTrue()->end()
+            ->end()
+            ->children()
+            ->scalarNode('appName')->isRequired()->end()
+            ->end()
+            ->children()
+            ->scalarNode('appVersion')->defaultValue('')->end()
+            ->end()
+            ->children()
+            ->scalarNode('serverUrl')->defaultValue('http://127.0.0.1:8200')->end()
+            ->end()
+            ->children()
+            ->scalarNode('secretToken')->defaultNull()->end()
+            ->end()
+            ->children()
+            ->integerNode('timeout')->defaultValue(5)->end()
+            ->end();
 
         return $treeBuilder;
     }

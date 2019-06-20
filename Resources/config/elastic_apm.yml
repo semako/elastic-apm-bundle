@@ -1,0 +1,14 @@
+elastic_apm:
+    enabled: true
+    appName: 'Symfony APM App' #Name of this application, Required
+#    appVersion: '' #Application version, Default: ''
+#    serverUrl: 'http://127.0.0.1:8200' #APM Server Endpoint, Default: 'http://127.0.0.1:8200'
+#    secretToken: null #Secret token for APM Server, Default: null
+#    hostname: ~ #Hostname to transmit to the APM Server, Default: gethostname()
+#    active: true #Activate the APM Agent, Default: true
+#    timeout: 5 #Guzzle Client timeout, Default: 5
+#    apmVersion: 'v1' #APM Server Intake API version, Default: 'v1'
+#    env: [] #$_SERVER vars to send to the APM Server, empty set sends all. Keys are case sensitive, Default: []
+#    cookies: [] #Cookies to send to the APM Server, empty set sends all. Keys are case sensitive, Default: []
+#    httpClient: [] #Extended GuzzleHttp\Client Default: []
+#    backtraceLimit: unlimited #Depth of a transaction backtrace, Default: unlimited
