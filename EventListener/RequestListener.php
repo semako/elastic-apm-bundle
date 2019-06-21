@@ -13,7 +13,7 @@ class RequestListener implements ElasticApmInterface, TokenStorageInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || !$this->enabled) {
+        if (!$event->isMasterRequest()) {
             return;
         }
 
@@ -24,7 +24,7 @@ class RequestListener implements ElasticApmInterface, TokenStorageInterface
 
     public function onKernelTerminate(PostResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || !$this->enabled) {
+        if (!$event->isMasterRequest()) {
             return;
         }
 

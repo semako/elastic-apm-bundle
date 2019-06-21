@@ -7,7 +7,7 @@ services:
     elastic_apm.listener.request:
         class: Goksagun\ElasticApmBundle\EventListener\RequestListener
         arguments:
-            - '%elastic_apm%'
+            - '@elastic_apm.service.agent'
         calls:
             - method: setTokenStorage
               arguments:
@@ -19,6 +19,12 @@ services:
     elastic_apm.listener.exception:
         class: Goksagun\ElasticApmBundle\EventListener\ExceptionListener
         arguments:
-            - '%elastic_apm%'
+            - '@elastic_apm.service.agent'
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 32 }
+
+    elastic_apm.service.agent:
+        class: PhilKra\Agent
+        factory: ['Goksagun\ElasticApmBundle\Apm\ElasticApmFactory', 'createAgent']
+        arguments:
+            - '%elastic_apm%'
