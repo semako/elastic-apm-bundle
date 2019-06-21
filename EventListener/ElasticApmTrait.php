@@ -25,6 +25,7 @@ trait ElasticApmTrait
     {
         $this->enabled = array_shift($config);
         $this->config = $config;
+        // TODO: create a factory
         $this->apm = $this->createApmAgent();
     }
 
