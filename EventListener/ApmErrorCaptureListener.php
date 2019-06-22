@@ -8,7 +8,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
-class ExceptionListener implements ElasticApmAwareInterface, LoggerAwareInterface
+class ApmErrorCaptureListener implements ElasticApmAwareInterface, LoggerAwareInterface
 {
     use ElasticApmAwareTrait, LoggerAwareTrait;
 

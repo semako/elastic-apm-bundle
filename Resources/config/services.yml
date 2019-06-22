@@ -5,7 +5,18 @@ parameters:
 
 services:
     elastic_apm.listener.request:
-        class: Goksagun\ElasticApmBundle\EventListener\RequestListener
+        class: Goksagun\ElasticApmBundle\EventListener\ApmTransactionRegisterListener
+        arguments:
+            - '@elastic_apm.service.agent'
+        calls:
+            -   method: setLogger
+                arguments:
+                    - '@?logger'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 31 }
+
+    elastic_apm.listener.terminate:
+        class: Goksagun\ElasticApmBundle\EventListener\ApmTransactionSenderListener
         arguments:
             - '@elastic_apm.service.agent'
         calls:
@@ -16,11 +27,10 @@ services:
                 arguments:
                     - '@?logger'
         tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 0 }
             - { name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate, priority: -2048 }
 
     elastic_apm.listener.exception:
-        class: Goksagun\ElasticApmBundle\EventListener\ExceptionListener
+        class: Goksagun\ElasticApmBundle\EventListener\ApmErrorCaptureListener
         arguments:
             - '@elastic_apm.service.agent'
         calls:

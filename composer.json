@@ -18,10 +18,11 @@
             "/Tests/"
         ]
     },
-    "repositories": [{
-        "type": "vcs",
-        "url": "https://github.com/goksagun/elastic-apm-php-agent.git"
-    }
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/goksagun/elastic-apm-php-agent.git"
+        }
     ],
     "require": {
         "philkra/elastic-apm-php-agent": "dev-master"
