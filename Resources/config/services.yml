@@ -9,9 +9,12 @@ services:
         arguments:
             - '@elastic_apm.service.agent'
         calls:
-            - method: setTokenStorage
-              arguments:
-                  - '@security.token_storage'
+            -   method: setTokenStorage
+                arguments:
+                    - '@security.token_storage'
+            -   method: setLogger
+                arguments:
+                    - '@?logger'
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 0 }
             - { name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate, priority: -2048 }
@@ -20,6 +23,10 @@ services:
         class: Goksagun\ElasticApmBundle\EventListener\ExceptionListener
         arguments:
             - '@elastic_apm.service.agent'
+        calls:
+            -   method: setLogger
+                arguments:
+                    - '@?logger'
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 32 }
 

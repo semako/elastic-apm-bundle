@@ -1,15 +1,15 @@
 <?php
 
-namespace Goksagun\ElasticApmBundle\EventListener;
+namespace Goksagun\ElasticApmBundle\Apm;
 
 use PhilKra\Agent;
 
-trait ElasticApmTrait
+trait ElasticApmAwareTrait
 {
     /**
      * @var Agent
      */
-    private $apm;
+    protected $apm;
 
     public function __construct(Agent $apm)
     {

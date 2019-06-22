@@ -1,10 +1,10 @@
 <?php
 
-namespace Goksagun\ElasticApmBundle\EventListener;
+namespace Goksagun\ElasticApmBundle\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
-interface TokenStorageInterface
+interface TokenStorageAwareInterface
 {
     public function setTokenStorage(TokenStorage $tokenStorage);
 }

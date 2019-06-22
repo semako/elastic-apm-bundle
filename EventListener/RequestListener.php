@@ -2,14 +2,20 @@
 
 namespace Goksagun\ElasticApmBundle\EventListener;
 
+use Goksagun\ElasticApmBundle\Apm\ElasticApmAwareInterface;
+use Goksagun\ElasticApmBundle\Apm\ElasticApmAwareTrait;
+use Goksagun\ElasticApmBundle\Security\TokenStorageAwareInterface;
+use Goksagun\ElasticApmBundle\Security\TokenStorageAwareTrait;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\Security\Core\User\User;
 
-class RequestListener implements ElasticApmInterface, TokenStorageInterface
+class RequestListener implements ElasticApmAwareInterface, TokenStorageAwareInterface, LoggerAwareInterface
 {
-    use ElasticApmTrait, TokenStorageTrait;
+    use ElasticApmAwareTrait, TokenStorageAwareTrait, LoggerAwareTrait;
 
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -18,8 +24,12 @@ class RequestListener implements ElasticApmInterface, TokenStorageInterface
         }
 
         $this->apm->startTransaction(
-            $this->getTransactionName($event->getRequest())
+            $name = $this->getTransactionName($event->getRequest())
         );
+
+        if (null !== $this->logger) {
+            $this->logger->info(sprintf('Transaction started for "%s"', $name));
+        }
     }
 
     public function onKernelTerminate(PostResponseEvent $event)
@@ -35,6 +45,10 @@ class RequestListener implements ElasticApmInterface, TokenStorageInterface
                 'status' => $event->getResponse()->getStatusCode(),
             ]
         );
+
+        if (null !== $this->logger) {
+            $this->logger->info(sprintf('Transaction stopped for "%s"', $name));
+        }
 
         $userContext = [];
         /** @var User $user */
@@ -56,7 +70,11 @@ class RequestListener implements ElasticApmInterface, TokenStorageInterface
 
         $this->apm->getTransaction($name)->setUserContext($userContext);
 
-        $this->apm->send();
+        $sent = $this->apm->send();
+
+        if (null !== $this->logger) {
+            $this->logger->info(sprintf('Transaction %s for "%s"', $sent ? 'sent' : 'not sent', $name));
+        }
     }
 
     public function getTransactionName(Request $request): string
@@ -65,23 +83,5 @@ class RequestListener implements ElasticApmInterface, TokenStorageInterface
         $controllerName = $request->get('_controller');
 
         return sprintf('%s (%s)', $controllerName, $routeName);
-    }
-
-    public function getUser()
-    {
-        if (null === $tokenStorage = $this->tokenStorage) {
-            return null;
-        }
-
-        if (null === $token = $tokenStorage->getToken()) {
-            return null;
-        }
-
-        if (!\is_object($user = $token->getUser())) {
-            // e.g. anonymous authentication
-            return null;
-        }
-
-        return $user;
     }
 }
