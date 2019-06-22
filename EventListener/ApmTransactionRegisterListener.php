@@ -16,7 +16,7 @@ class ApmTransactionRegisterListener implements ElasticApmAwareInterface, Logger
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMasterRequest() || !$this->apm->getConfig()->get('active')) {
             return;
         }
 

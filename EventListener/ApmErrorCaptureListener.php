@@ -14,6 +14,10 @@ class ApmErrorCaptureListener implements ElasticApmAwareInterface, LoggerAwareIn
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
+        if (!$this->apm->getConfig()->get('active')) {
+            return;
+        }
+
         $this->apm->captureThrowable($exception = $event->getException());
 
         if (null !== $this->logger) {
