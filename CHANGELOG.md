@@ -1,3 +1,11 @@
+## 0.3.0 (June 22, 2019)
+  - Fix disabled apm logging
+  - Fix exception capture bug for authentication required requests
+  - Add logger as an optional and refactor dependencies move to interface
+  - Refactor listeners and create agent factory
+  - Add user context to request listener
+  - Fix status result when error occured
+
 ## 0.2.0 (June 20, 2019)
   - Fix composer requirement for private repository branch name
   - Add README.md file
