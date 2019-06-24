@@ -1,3 +1,6 @@
+## 0.4.0 (June 24, 2019)
+  - Exclude any exception(s) or http status code(s) from errors
+
 ## 0.3.1 (June 24, 2019)
   - Catch guzzle client connector exception if occurs
 
