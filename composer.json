@@ -27,6 +27,9 @@
     "require": {
         "philkra/elastic-apm-php-agent": "dev-master"
     },
+    "require-dev": {
+        "symfony/phpunit-bridge": "*"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1.x-dev"

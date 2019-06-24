@@ -4,9 +4,11 @@ namespace Goksagun\ElasticApmBundle\EventListener;
 
 use Goksagun\ElasticApmBundle\Apm\ElasticApmAwareInterface;
 use Goksagun\ElasticApmBundle\Apm\ElasticApmAwareTrait;
+use Goksagun\ElasticApmBundle\Utils\StringHelper;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ApmErrorCaptureListener implements ElasticApmAwareInterface, LoggerAwareInterface
 {
@@ -14,11 +16,37 @@ class ApmErrorCaptureListener implements ElasticApmAwareInterface, LoggerAwareIn
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        if (!$this->apm->getConfig()->get('active')) {
+        $config = $this->apm->getConfig();
+
+        if (!$config->get('active')) {
             return;
         }
 
-        $this->apm->captureThrowable($exception = $event->getException());
+        $exception = $event->getException();
+
+        if ($errors = $config->get('errors')) {
+            if ($excludedStatusCodes = $errors['exclude']['status_codes'] ?? []) {
+                if (!$exception instanceof HttpExceptionInterface) {
+                    return;
+                }
+
+                foreach ($excludedStatusCodes as $excludedStatusCode) {
+                    if (StringHelper::match($excludedStatusCode, $exception->getStatusCode())) {
+                        return;
+                    }
+                }
+            }
+
+            if ($excludedExceptions = $errors['exclude']['exceptions'] ?? []) {
+                foreach ($excludedExceptions as $excludedException) {
+                    if ($exception instanceof $excludedException) {
+                        return;
+                    }
+                }
+            }
+        }
+
+        $this->apm->captureThrowable($exception);
 
         if (null !== $this->logger) {
             $this->logger->info(sprintf('Errors captured for "%s"', $exception->getTraceAsString()));
