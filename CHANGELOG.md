@@ -1,3 +1,6 @@
+## 0.3.1 (June 24, 2019)
+  - Catch guzzle client connector exception if occurs
+
 ## 0.3.0 (June 22, 2019)
   - Fix disabled apm logging
   - Fix exception capture bug for authentication required requests
