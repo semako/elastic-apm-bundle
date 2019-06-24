@@ -24,7 +24,11 @@ class ApmErrorCaptureListener implements ElasticApmAwareInterface, LoggerAwareIn
             $this->logger->info(sprintf('Errors captured for "%s"', $exception->getTraceAsString()));
         }
 
-        $sent = $this->apm->send();
+        try {
+            $sent = $this->apm->send();
+        } catch (\Exception $e) {
+            $sent = false;
+        }
 
         if (null !== $this->logger) {
             $this->logger->info(

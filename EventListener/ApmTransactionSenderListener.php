@@ -46,7 +46,11 @@ class ApmTransactionSenderListener implements ElasticApmAwareInterface, TokenSto
 
         $transaction->setUserContext($userContext);
 
-        $sent = $this->apm->send();
+        try {
+            $sent = $this->apm->send();
+        } catch (\Exception $e) {
+            $sent = false;
+        }
 
         if (null !== $this->logger) {
             $this->logger->info(sprintf('Transaction %s for "%s"', $sent ? 'sent' : 'not sent', $name));
