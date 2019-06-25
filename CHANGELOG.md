@@ -1,3 +1,6 @@
+## 0.5.0 (June 25, 2019)
+  - Enable or disable each service
+
 ## 0.4.0 (June 24, 2019)
   - Exclude any exception(s) or http status code(s) from errors
 
