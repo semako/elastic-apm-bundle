@@ -18,13 +18,15 @@ class ApmErrorCaptureListener implements ElasticApmAwareInterface, LoggerAwareIn
     {
         $config = $this->apm->getConfig();
 
-        if (!$config->get('active')) {
+        $errors = $config->get('errors');
+
+        if (!$config->get('active') || !$errors['enabled']) {
             return;
         }
 
         $exception = $event->getException();
 
-        if ($errors = $config->get('errors')) {
+        if ($errors) {
             if ($excludedStatusCodes = $errors['exclude']['status_codes'] ?? []) {
                 if (!$exception instanceof HttpExceptionInterface) {
                     return;
