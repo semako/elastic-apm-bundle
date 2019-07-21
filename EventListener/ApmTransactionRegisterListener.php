@@ -20,7 +20,7 @@ class ApmTransactionRegisterListener implements ElasticApmAwareInterface, Logger
 
         $transactions = $config->get('transactions');
 
-        if (!$event->isMasterRequest() || !$config->get('active') || !$transactions['enabled']) {
+        if (!$event->isMasterRequest() || !$config->get('enabled') || !$transactions['enabled']) {
             return;
         }
 

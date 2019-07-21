@@ -20,7 +20,7 @@ class ApmErrorCaptureListener implements ElasticApmAwareInterface, LoggerAwareIn
 
         $errors = $config->get('errors');
 
-        if (!$config->get('active') || !$errors['enabled']) {
+        if (!$config->get('enabled') || !$errors['enabled']) {
             return;
         }
 

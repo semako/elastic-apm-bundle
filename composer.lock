@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10aafde9f2f45899a1af13b132cef39f",
+    "content-hash": "95b5e8cee3fbfd87a567754b8fdc72f7",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -207,16 +207,16 @@
         },
         {
             "name": "philkra/elastic-apm-php-agent",
-            "version": "dev-master",
+            "version": "dev-hotfix/add-future-option-to-client",
             "source": {
                 "type": "git",
                 "url": "https://github.com/goksagun/elastic-apm-php-agent.git",
-                "reference": "1ab4f314af2e4710aaa66195de5605f840c91661"
+                "reference": "35a499217534623463cd343d31cee70b1279be48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/goksagun/elastic-apm-php-agent/zipball/1ab4f314af2e4710aaa66195de5605f840c91661",
-                "reference": "1ab4f314af2e4710aaa66195de5605f840c91661",
+                "url": "https://api.github.com/repos/goksagun/elastic-apm-php-agent/zipball/35a499217534623463cd343d31cee70b1279be48",
+                "reference": "35a499217534623463cd343d31cee70b1279be48",
                 "shasum": ""
             },
             "require": {
@@ -259,9 +259,9 @@
             ],
             "description": "A php agent for Elastic APM",
             "support": {
-                "source": "https://github.com/goksagun/elastic-apm-php-agent/tree/master"
+                "source": "https://github.com/goksagun/elastic-apm-php-agent/tree/hotfix/add-future-option-to-client"
             },
-            "time": "2019-06-20T13:06:47+00:00"
+            "time": "2019-07-21T18:36:10+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "philkra/elastic-apm-php-agent": "dev-master"
+        "philkra/elastic-apm-php-agent": "dev-hotfix/add-future-option-to-client"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "*"

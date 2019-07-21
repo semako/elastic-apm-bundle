@@ -20,7 +20,11 @@ class ApmTransactionSenderListener implements ElasticApmAwareInterface, TokenSto
 
     public function onKernelTerminate(PostResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || !$this->apm->getConfig()->get('active')) {
+        $config = $this->apm->getConfig();
+
+        $transactions = $config->get('transactions');
+
+        if (!$event->isMasterRequest() || !$config->get('enabled') || !$transactions['enabled']) {
             return;
         }
 
