@@ -1,5 +1,5 @@
 {
-    "name": "goksagun/elastic-apm-bundle",
+    "name": "semako/elastic-apm-bundle",
     "description": "Elastic APM bundle",
     "type": "symfony-bundle",
     "authors": [
@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "philkra/elastic-apm-php-agent": "dev-master"
+        "philkra/elastic-apm-php-agent": "6^"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "*"
